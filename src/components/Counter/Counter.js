@@ -1,27 +1,46 @@
 import React, { Component } from 'react';
+import Controls from './Controls';
 import './Counter.css';
 
 class Counter extends Component {
-  state = {
-    value: 5,
+  static defaultProps = {
+    initialValue: 0,
   };
 
-  handleIncrement = event => {};
+  static = {
+    // описуємо проптайпи...
+  };
 
-  handleDecrement = event => {};
+  state = {
+    value: this.props.initialValue,
+  };
+
+  handleIncrement = () => {
+    this.setState(prevState => ({
+      value: prevState.value + 1,
+    }));
+  };
+
+  handleDecrement = () => {
+    this.setState(prevState => ({
+      value: prevState.value - 1,
+    }));
+  };
 
   render() {
     return (
       <div className="Counter">
         <span className="Counter__value">{this.state.value}</span>
-        <div className="Counter__controls">
+
+        <Controls onIncrement={this.handleIncrement} onDecrement={this.handleDecrement} />
+        {/* <div className="Counter__controls">
           <button type="button" onClick={this.handleIncrement}>
             Збільшити
           </button>
           <button type="button" onClick={this.handleDecrement}>
             Зменшити
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }
