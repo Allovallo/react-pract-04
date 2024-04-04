@@ -1,0 +1,27 @@
+.TodoList {
+    width: 600px;
+    padding: 0px;
+}
+
+.TodoList__item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+.TodoList__text {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.TodoList__item--completed {
+
+}
+
+.TodoList__button {
+
+}
+
+.TodoList__checkbox {}
