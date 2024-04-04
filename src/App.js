@@ -17,7 +17,7 @@ function App() {
     <div>
       {/* <Counter initialValue={10}></Counter> */}
       {/* <Dropdown /> */}
-      <ColorPicker />
+      <ColorPicker options={colorPickerOptions} />
     </div>
   );
 }

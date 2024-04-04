@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './ColorPicker.css';
 
-const ColorPicker = ({ options }) => {
-  return (
-    <div className="ColorPicker">
-      <h2 className="ColorPicker__title"></h2>
-      <div>
-        {options.map(({ label, color }) => (
-          <span
-            key={label}
-            className="ColorPicker__option"
-            style={{ backgroundColor: color }}
-          ></span>
-        ))}
+class ColorPicker extends Component {
+  state = {
+    activeOptionIdx: 3,
+  };
+
+  render() {
+    return (
+      <div className="ColorPicker">
+        <h2 className="ColorPicker__title">Color Picker</h2>
+        <div>
+          {this.props.options.map(({ label, color }, index) => {
+            const optionClasses = ['ColorPicker__option'];
+
+            if (index === this.state.activeOptionIdx) {
+              optionClasses.push('ColorPicker__option--active');
+            }
+
+            return (
+              <button
+                key={label}
+                className={optionClasses.join(' ')}
+                style={{
+                  backgroundColor: color,
+                }}
+              ></button>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default ColorPicker;
