@@ -19,10 +19,21 @@ const colorPickerOptions = [
 class App extends Component {
   state = {
     todos: initialTodos,
+    name: '',
+    tag: '',
   };
 
   deleteTodo = todoId => {
     this.setState(prevState => ({ todos: prevState.todos.filter(todo => todo.id !== todoId) }));
+  };
+
+  handleNameChange = event => {
+    // console.log(event.currentTarget.value);
+    this.setState({ name: event.currentTarget.value });
+  };
+
+  handleTagChange = event => {
+    this.setState({ tag: event.currentTarget.value });
   };
 
   render() {
@@ -37,15 +48,28 @@ class App extends Component {
     return (
       <>
         <h1>Стан компонента</h1>
-        {/* <Counter initialValue={10}></Counter>
-        <Dropdown />
-        <ColorPicker options={colorPickerOptions} /> */}
-        <div>
+
+        <form>
+          <label>
+            Ім'я
+            <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+          </label>
+
+          <label>
+            Нікнейм
+            <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
+          </label>
+        </form>
+
+        {/* <Counter initialValue={10}></Counter> */}
+        {/* <Dropdown /> */}
+        {/* <ColorPicker options={colorPickerOptions} /> */}
+        {/* <div>
           <p>Загальна кількість todo'шек: {totalTodoCount}</p>
           <p>Кількість виконаних todo'шек: {completedTodosCount}</p>
-        </div>
+        </div> */}
 
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+        {/* <TodoList todos={todos} onDeleteTodo={this.deleteTodo} /> */}
       </>
     );
   }
