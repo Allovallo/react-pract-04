@@ -26,6 +26,10 @@ class App extends Component {
     this.setState(prevState => ({ todos: prevState.todos.filter(todo => todo.id !== todoId) }));
   };
 
+  formSubmitHandler = data => {
+    console.log(data);
+  };
+
   // handleNameChange = event => {
   //   // console.log(event.currentTarget.value);
   //   this.setState({ name: event.currentTarget.value });
@@ -47,7 +51,7 @@ class App extends Component {
     return (
       <>
         <h1>Стан компонента</h1>
-        <Form></Form>
+        <Form onSubmit={this.formSubmitHandler} />
         {/* <Counter initialValue={10}></Counter> */}
         {/* <Dropdown /> */}
         {/* <ColorPicker options={colorPickerOptions} /> */}

@@ -13,7 +13,12 @@ class Form extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    this.props.onSubmit(this.state);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({ name: '', tag: '' });
   };
 
   render() {
