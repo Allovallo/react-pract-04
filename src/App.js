@@ -6,6 +6,7 @@ import Counter from 'components/Counter';
 import ColorPicker from 'components/ColorPicker';
 import TodoList from 'components/TodoList';
 import initialTodos from './todos.json';
+import Form from 'components/Form';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -19,22 +20,20 @@ const colorPickerOptions = [
 class App extends Component {
   state = {
     todos: initialTodos,
-    name: '',
-    tag: '',
   };
 
   deleteTodo = todoId => {
     this.setState(prevState => ({ todos: prevState.todos.filter(todo => todo.id !== todoId) }));
   };
 
-  handleNameChange = event => {
-    // console.log(event.currentTarget.value);
-    this.setState({ name: event.currentTarget.value });
-  };
+  // handleNameChange = event => {
+  //   // console.log(event.currentTarget.value);
+  //   this.setState({ name: event.currentTarget.value });
+  // };
 
-  handleTagChange = event => {
-    this.setState({ tag: event.currentTarget.value });
-  };
+  // handleTagChange = event => {
+  //   this.setState({ tag: event.currentTarget.value });
+  // };
 
   render() {
     const { todos } = this.state;
@@ -48,19 +47,7 @@ class App extends Component {
     return (
       <>
         <h1>Стан компонента</h1>
-
-        <form>
-          <label>
-            Ім'я
-            <input type="text" value={this.state.name} onChange={this.handleNameChange} />
-          </label>
-
-          <label>
-            Нікнейм
-            <input type="text" value={this.state.tag} onChange={this.handleTagChange} />
-          </label>
-        </form>
-
+        <Form></Form>
         {/* <Counter initialValue={10}></Counter> */}
         {/* <Dropdown /> */}
         {/* <ColorPicker options={colorPickerOptions} /> */}
