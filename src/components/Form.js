@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 
 class Form extends Component {
   state = {
     name: '',
     tag: '',
+    experience: 'junior',
   };
+
+  nameInputId = nanoid();
+  tagInputId = nanoid();
 
   handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -25,14 +30,60 @@ class Form extends Component {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
-          <label>
+          <label htmlFor={this.nameInputId}>
             Ім'я
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange}
+              id={this.nameInputId}
+            />
+          </label>
+
+          <label htmlFor={this.tagInputId}>
+            Нікнейм
+            <input
+              type="text"
+              name="tag"
+              value={this.state.tag}
+              onChange={this.handleChange}
+              id={this.tagInputId}
+            />
+          </label>
+
+          <p>Ваш рівень</p>
+          <label>
+            <input
+              type="radio"
+              name="experience"
+              value="junior"
+              onChange={this.handleChange}
+              checked={this.state.experience === 'junior'}
+            />{' '}
+            Junior
           </label>
 
           <label>
-            Нікнейм
-            <input type="text" name="tag" value={this.state.tag} onChange={this.handleChange} />
+            <input
+              type="radio"
+              name="experience"
+              value="middle"
+              onChange={this.handleChange}
+              checked={this.state.experience === 'middle'}
+            />{' '}
+            Middle
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="experience"
+              value="senior"
+              onChange={this.handleChange}
+              checked={this.state.experience === 'senior'}
+            />{' '}
+            Senior
           </label>
 
           <button type="submit">Відправити</button>
