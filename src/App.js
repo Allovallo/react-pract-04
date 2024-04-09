@@ -51,10 +51,10 @@ class App extends Component {
     return (
       <>
         <h1>Стан компонента</h1>
-        <Form onSubmit={this.formSubmitHandler} />
+        {/* <Form onSubmit={this.formSubmitHandler} /> */}
         {/* <Counter initialValue={10}></Counter> */}
         {/* <Dropdown /> */}
-        {/* <ColorPicker options={colorPickerOptions} /> */}
+        <ColorPicker options={colorPickerOptions} />
         {/* <div>
           <p>Загальна кількість todo'шек: {totalTodoCount}</p>
           <p>Кількість виконаних todo'шек: {completedTodosCount}</p>

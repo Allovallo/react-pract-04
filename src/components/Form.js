@@ -6,6 +6,7 @@ class Form extends Component {
     name: '',
     tag: '',
     experience: 'junior',
+    licence: false,
   };
 
   nameInputId = nanoid();
@@ -20,6 +21,11 @@ class Form extends Component {
     event.preventDefault();
     this.props.onSubmit(this.state);
     this.reset();
+  };
+
+  handleLicenceChange = event => {
+    console.log(event.currentTarget.checked);
+    this.setState({ licence: event.currentTarget.checked });
   };
 
   reset = () => {
@@ -86,7 +92,20 @@ class Form extends Component {
             Senior
           </label>
 
-          <button type="submit">Відправити</button>
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              name="licence"
+              checked={this.state.licence}
+              onChange={this.handleLicenceChange}
+            />
+            Згоден з умовами оферу!
+          </label>
+
+          <button type="submit" disabled={!this.state.licence}>
+            Відправити
+          </button>
         </form>
       </>
     );
