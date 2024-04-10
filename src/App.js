@@ -23,11 +23,30 @@ class App extends Component {
   };
 
   deleteTodo = todoId => {
-    this.setState(prevState => ({ todos: prevState.todos.filter(todo => todo.id !== todoId) }));
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== todoId),
+    }));
   };
 
   formSubmitHandler = data => {
     console.log(data);
+  };
+
+  toggleCompleted = todoId => {
+    console.log(todoId);
+
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo => {
+        if (todo.id === todoId) {
+          console.log('Знайшли потрібний todo!');
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      }),
+    }));
   };
 
   // handleNameChange = event => {
@@ -54,13 +73,17 @@ class App extends Component {
         {/* <Form onSubmit={this.formSubmitHandler} /> */}
         {/* <Counter initialValue={10}></Counter> */}
         {/* <Dropdown /> */}
-        <ColorPicker options={colorPickerOptions} />
-        {/* <div>
+        {/* <ColorPicker options={colorPickerOptions} /> */}
+        <div>
           <p>Загальна кількість todo'шек: {totalTodoCount}</p>
           <p>Кількість виконаних todo'шек: {completedTodosCount}</p>
-        </div> */}
+        </div>
 
-        {/* <TodoList todos={todos} onDeleteTodo={this.deleteTodo} /> */}
+        <TodoList
+          todos={todos}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted}
+        />
       </>
     );
   }
