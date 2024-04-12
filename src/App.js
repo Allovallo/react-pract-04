@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
+import { nanoid } from 'nanoid';
 import Dropdown from 'components/Dropdown';
 import './App.css';
 import Counter from 'components/Counter';
@@ -7,6 +8,8 @@ import ColorPicker from 'components/ColorPicker';
 import TodoList from 'components/TodoList';
 import initialTodos from './todos.json';
 import Form from 'components/Form';
+import TodoEditor from 'components/TodoEditor/TodoEditor';
+import Filter from 'components/Filter';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -20,6 +23,7 @@ const colorPickerOptions = [
 class App extends Component {
   state = {
     todos: initialTodos,
+    filter: '',
   };
 
   deleteTodo = todoId => {
@@ -35,40 +39,46 @@ class App extends Component {
   toggleCompleted = todoId => {
     console.log(todoId);
 
-    this.setState(prevState => ({
-      todos: prevState.todos.map(todo => {
-        if (todo.id === todoId) {
-          console.log('Знайшли потрібний todo!');
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      }),
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo =>
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+      ),
     }));
   };
 
-  // handleNameChange = event => {
-  //   // console.log(event.currentTarget.value);
-  //   this.setState({ name: event.currentTarget.value });
-  // };
+  addTodo = text => {
+    const todo = {
+      id: nanoid(),
+      text,
+      completed: false,
+    };
 
-  // handleTagChange = event => {
-  //   this.setState({ tag: event.currentTarget.value });
-  // };
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
+  };
+
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getVisibleTodos = () => {
+    const { filter, todos } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return todos.filter(todo => todo.text.toLowerCase().includes(normalizedFilter));
+  };
+
+  calculateCompletedTodos = () => {
+    const { todos } = this.state;
+    return todos.reduce((total, todo) => (todo.completed ? total + 1 : total), 0);
+  };
 
   render() {
-    const { todos } = this.state;
-
+    const { todos, filter } = this.state;
     const totalTodoCount = todos.length;
-    const completedTodosCount = todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0
-    );
+    const completedTodosCount = this.calculateCompletedTodos();
+    const visibleTodos = this.getVisibleTodos();
 
     return (
-      <>
+      <Fragment>
         <h1>Стан компонента</h1>
         {/* <Form onSubmit={this.formSubmitHandler} /> */}
         {/* <Counter initialValue={10}></Counter> */}
@@ -79,12 +89,16 @@ class App extends Component {
           <p>Кількість виконаних todo'шек: {completedTodosCount}</p>
         </div>
 
+        <TodoEditor onSubmit={this.addTodo} />
+
+        <Filter value={filter} onChange={this.changeFilter}></Filter>
+
         <TodoList
-          todos={todos}
+          todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
         />
-      </>
+      </Fragment>
     );
   }
 }
